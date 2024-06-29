@@ -1,39 +1,55 @@
 ﻿@model UserManagement.Web.Models.Users.UserListItemViewModel
+@{
+    var logs = ViewData["Logs"] as IEnumerable<UserManagement.Models.LogViewModel>;
+}
 
 <h2>User Details</h2>
 
 <div>
     <dl class="row">
-        <dt class="col-sm-2">
-            Forename
-        </dt>
-        <dd class="col-sm-10">
-            @Model.Forename
-        </dd>
-        <dt class="col-sm-2">
-            Surname
-        </dt>
-        <dd class="col-sm-10">
-            @Model.Surname
-        </dd>
-        <dt class="col-sm-2">
-            Email
-        </dt>
-        <dd class="col-sm-10">
-            @Model.Email
-        </dd>
-        <dt class="col-sm-2">
-            Account Active
-        </dt>
-        <dd class="col-sm-10">
-            @(Model.IsActive ? "Yes" : "No")
-        </dd>
-        <dt class="col-sm-2">
-            Date Of Birth
-        </dt>
-        <dd class="col-sm-10">
-            @Model.DateOfBirth.ToShortDateString()
-        </dd>
+        <dt class="col-sm-2">Forename</dt>
+        <dd class="col-sm-10">@Model.Forename</dd>
+        <dt class="col-sm-2">Surname</dt>
+        <dd class="col-sm-10">@Model.Surname</dd>
+        <dt class="col-sm-2">Email</dt>
+        <dd class="col-sm-10">@Model.Email</dd>
+        <dt class="col-sm-2">Account Active</dt>
+        <dd class="col-sm-10">@Model.IsActive ? "Yes" : "No"</dd>
+        <dt class="col-sm-2">Date Of Birth</dt>
+        <dd class="col-sm-10">@Model.DateOfBirth.ToShortDateString()</dd>
     </dl>
+</div>
+
+<h3>User Logs</h3>
+@if (logs != null && logs.Any())
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Date Created</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var log in logs)
+            {
+                <tr>
+                    <td>@log.Title</td>
+                    <td>@log.LogType</td>
+                    <td>@log.Description</td>
+                    <td>@log.DateCreated.ToString("dd/MM/yyyy")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No logs found for this user.</p>
+}
+
+<div>
     <a asp-action="List" class="btn btn-primary">Back to List</a>
 </div>

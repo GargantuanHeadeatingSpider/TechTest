@@ -3,16 +3,21 @@ using UserManagement.Models;
 using UserManagement.Services.Domain.Interfaces;
 using UserManagement.Web.Models.Users;
 
+
+using System;
+
 namespace UserManagement.WebMS.Controllers
 {
     [Route("users")]
     public class UsersController : Controller
     {
         private readonly IUserService _userService;
+        private readonly ILogService _logService;
 
-        public UsersController(IUserService userService)
+        public UsersController(IUserService userService, ILogService logService)
         {
             _userService = userService;
+            _logService = logService;
         }
 
         [HttpGet]
@@ -62,6 +67,8 @@ namespace UserManagement.WebMS.Controllers
             }
 
             var model = MakeUserListItemViewModel(user);
+            var logs = _logService.GetLogsByUserId(id);
+            ViewData["Logs"] = logs;
             return View(model);
         }
 
@@ -91,6 +98,15 @@ namespace UserManagement.WebMS.Controllers
                 }
 
                 UpdateUser(user, model);
+                _logService.CreateLog(new LogViewModel
+                {
+                    UserId = model.Id,
+                    Title = "User Edited",
+                    LogType = "Edit",
+                    Description = $"User {model.Forename} {model.Surname} was edited.",
+                    DateCreated = DateTime.UtcNow
+                });
+
                 return RedirectToAction("List");
             }
 
@@ -99,7 +115,7 @@ namespace UserManagement.WebMS.Controllers
 
         public UserListItemViewModel MakeUserListItemViewModel(User user)
         {
-            var model = new UserListItemViewModel
+            return new UserListItemViewModel
             {
                 Id = user.Id,
                 Forename = user.Forename,
@@ -108,7 +124,6 @@ namespace UserManagement.WebMS.Controllers
                 IsActive = user.IsActive,
                 DateOfBirth = user.DateOfBirth
             };
-            return model;
         }
 
         public void UpdateUser(User user, UserListItemViewModel model)
@@ -143,6 +158,15 @@ namespace UserManagement.WebMS.Controllers
                 };
 
                 _userService.CreateUser(user);
+                _logService.CreateLog(new LogViewModel
+                {
+                    UserId = user.Id,
+                    Title = "User Created",
+                    LogType = "Create",
+                    Description = $"User {user.Forename} {user.Surname} was created.",
+                    DateCreated = DateTime.UtcNow
+                });
+
                 return RedirectToAction("List");
             }
 
@@ -153,6 +177,15 @@ namespace UserManagement.WebMS.Controllers
         public IActionResult Delete(long id)
         {
             _userService.DeleteUser(id);
+            _logService.CreateLog(new LogViewModel
+            {
+                UserId = id,
+                Title = "User Deleted",
+                LogType = "Delete",
+                Description = $"User with ID {id} was deleted.",
+                DateCreated = DateTime.UtcNow
+            });
+
             return RedirectToAction("List");
         }
     }

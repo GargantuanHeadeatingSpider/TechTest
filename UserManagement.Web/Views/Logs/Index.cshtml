@@ -1,0 +1,32 @@
+﻿@model IEnumerable<UserManagement.Models.LogViewModel>
+
+<h2>Logs</h2>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Date Created</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var log in Model)
+            {
+                <tr>
+                    <td><a asp-controller="Logs" asp-action="Details" asp-route-id="@log.Id">@log.Title</a></td>
+                    <td>@log.LogType</td>
+                    <td>@log.Description</td>
+                    <td>@log.DateCreated.ToString("dd/MM/yyyy")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No logs found.</p>
+}

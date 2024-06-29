@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\UserManagement.Services\UserManagement.Services.csproj" />
+    <ProjectReference Include="..\UserManagement.LogModels\UserManagement.LogModels.csproj" />
   </ItemGroup>
 
 </Project>

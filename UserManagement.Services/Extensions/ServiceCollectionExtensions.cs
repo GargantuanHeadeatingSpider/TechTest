@@ -1,10 +1,15 @@
 ﻿using UserManagement.Services.Domain.Implementations;
 using UserManagement.Services.Domain.Interfaces;
 
-namespace Microsoft.Extensions.DependencyInjection;
-
-public static class ServiceCollectionExtensions
+namespace Microsoft.Extensions.DependencyInjection
 {
-    public static IServiceCollection AddDomainServices(this IServiceCollection services)
-        => services.AddScoped<IUserService, UserService>();
+    public static class ServiceCollectionExtensions
+    {
+        public static IServiceCollection AddDomainServices(this IServiceCollection services)
+        {
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ILogService, LogService>();
+            return services;
+        }
+    }
 }

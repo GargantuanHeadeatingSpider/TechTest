@@ -12,8 +12,9 @@ namespace UserManagement.Data
         protected override void OnConfiguring(DbContextOptionsBuilder options)
             => options.UseInMemoryDatabase("UserManagement.Data.DataContext");
 
-        protected override void OnModelCreating(ModelBuilder model)
-            => model.Entity<User>().HasData(new[]
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>().HasData(new[]
             {
                 new User { Id = 1, Forename = "Peter", Surname = "Loew", Email = "ploew@example.com", IsActive = true, DateOfBirth = new DateTime(1998,04,30)},
                 new User { Id = 2, Forename = "Benjamin Franklin", Surname = "Gates", Email = "bfgates@example.com", IsActive = true, DateOfBirth = new DateTime(1992,05,13)},
@@ -27,8 +28,10 @@ namespace UserManagement.Data
                 new User { Id = 10, Forename = "Johnny", Surname = "Blaze", Email = "jblaze@example.com", IsActive = true, DateOfBirth =  new DateTime(1998,11,30)},
                 new User { Id = 11, Forename = "Robin", Surname = "Feld", Email = "rfeld@example.com", IsActive = true, DateOfBirth =  new DateTime(1986,07,08)},
             });
+        }
 
         public DbSet<User>? Users { get; set; }
+        public DbSet<Log>? Logs { get; set; }
 
         public IQueryable<TEntity> GetAll<TEntity>() where TEntity : class
             => base.Set<TEntity>();
