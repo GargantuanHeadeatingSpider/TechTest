@@ -1,34 +1,51 @@
 ﻿using UserManagement.Services.Domain.Interfaces;
+using UserManagement.Models;
+using System.Linq;
+using System;
 
-namespace UserManagement.WebMS.Controllers
+namespace UserManagement.WebMS.Controllers;
+
+[Route("logs")]
+public class LogsController(ILogService logService) : Controller
 {
-    [Route("logs")]
-    public class LogsController : Controller
+    private readonly ILogService _logService = logService;
+
+    [HttpGet]
+    public IActionResult Index(string logType, DateTime? startDate, DateTime? endDate)
     {
-        private readonly ILogService _logService;
+        IEnumerable<LogViewModel> logs = _logService.GetAllLogs();
 
-        public LogsController(ILogService logService)
+        if (!string.IsNullOrEmpty(logType))
         {
-            _logService = logService;
+            logs = logs.Where(log => log.LogType == logType);
         }
 
-        [HttpGet]
-        public IActionResult Index()
+        if (startDate.HasValue)
         {
-            var logs = _logService.GetAllLogs();
-            return View(logs);
-        }
-
-        [HttpGet("details/{id}")]
-        public IActionResult Details(long id)
-        {
-            var log = _logService.GetLogById(id);
-            if (log == null)
+            if (endDate.HasValue)
             {
-                return NotFound();
+                logs = logs.Where(log => log.DateCreated >= startDate.Value && log.DateCreated <= endDate.Value);
             }
-
-            return View(log);
+            else
+            {
+                logs = logs.Where(log => log.DateCreated.Date == startDate.Value.Date);
+            }
         }
+        ViewData["StartDate"] = startDate;
+        ViewData["EndDate"] = endDate;
+
+        return View(logs);
+    }
+
+    [HttpGet("details/{id}")]
+    public IActionResult Details(long id)
+    {
+        var log = _logService.GetLogById(id);
+        if (log == null)
+        {
+            return NotFound();
+        }
+
+        return View(log);
     }
 }

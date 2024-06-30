@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 using UserManagement.Models;
 
-namespace UserManagement.Services.Domain.Interfaces
+namespace UserManagement.Services.Domain.Interfaces;
+
+public interface ILogService
 {
-    public interface ILogService
-    {
-        IEnumerable<LogViewModel> GetAllLogs();
-        IEnumerable<LogViewModel> GetLogsByUserId(long userId);
-        LogViewModel? GetLogById(long id);
-        void CreateLog(LogViewModel log);
-    }
+    IEnumerable<LogViewModel> GetAllLogs();
+    IEnumerable<LogViewModel> GetLogsByUserId(long userId);
+    LogViewModel? GetLogById(long id);
+    void CreateLog(LogViewModel log);
 }

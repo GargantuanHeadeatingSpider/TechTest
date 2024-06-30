@@ -2,7 +2,7 @@
 
 <h2>Add User</h2>
 
-<form asp-action="AddUser">
+<form asp-action="AddUser" method="post">
     <div class="form-group">
         <label asp-for="Forename" class="control-label"></label>
         <input asp-for="Forename" class="form-control" />
@@ -20,9 +20,15 @@
     </div>
     <div class="form-group">
         <label asp-for="DateOfBirth" class="control-label"></label>
-        <input asp-for="DateOfBirth" class="form-control" />
+        <input asp-for="DateOfBirth" class="form-control" type="date" />
         <span asp-validation-for="DateOfBirth" class="text-danger"></span>
     </div>
     <button type="submit" class="btn btn-primary">Add</button>
     <a asp-action="List" class="btn btn-secondary">Cancel</a>
 </form>
+
+@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
