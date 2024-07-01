@@ -30,17 +30,20 @@ public class DataContext : DbContext, IDataContext
         ]);
 
         modelBuilder.Entity<Log>().HasData(
-    new Log { Id = 1, UserId = 1, Title = "User Name Updated", LogType = "Update", Description = "User name changed from Peter Pan to Peter Loew", DateCreated = DateTime.UtcNow.AddDays(-30) },
-    new Log { Id = 2, UserId = 2, Title = "User Email Updated", LogType = "Update", Description = "User email changed from ben@example.com to bfgates@example.com", DateCreated = DateTime.UtcNow.AddDays(-25) },
-    new Log { Id = 3, UserId = 3, Title = "User Date of Birth Updated", LogType = "Update", Description = "User date of birth changed from 1974-11-10 to 1974-11-12", DateCreated = DateTime.UtcNow.AddDays(-20) },
-    new Log { Id = 4, UserId = 4, Title = "User Name Updated", LogType = "Update", Description = "User name changed from Memphis Monroe to Memphis Raines", DateCreated = DateTime.UtcNow.AddDays(-15) },
-    new Log { Id = 5, UserId = 5, Title = "User Email Updated", LogType = "Update", Description = "User email changed from stantheman@example.com to sgodspeed@example.com", DateCreated = DateTime.UtcNow.AddDays(-10) },
-    new Log { Id = 6, UserId = 6, Title = "User Date of Birth Updated", LogType = "Update", Description = "User date of birth changed from 1989-03-20 to 1989-03-23", DateCreated = DateTime.UtcNow.AddDays(-5) },
-    new Log { Id = 7, UserId = 7, Title = "User Name Updated", LogType = "Update", Description = "User name changed from Edgar Allan Poe to Cameron Poe", DateCreated = DateTime.UtcNow.AddDays(-2) },
-    new Log { Id = 8, UserId = 8, Title = "User Email Updated", LogType = "Update", Description = "User email changed from eddyboii@example.com to emalus@example.com", DateCreated = DateTime.UtcNow.AddDays(-1) },
-    new Log { Id = 9, UserId = 9, Title = "User Date of Birth Updated", LogType = "Update", Description = "User date of birth changed from 1901-04-18 to 1991-04-19", DateCreated = DateTime.UtcNow },
-    new Log { Id = 10, UserId = 10, Title = "User Name Updated", LogType = "Update", Description = "User name changed from Johnny Joestar to Johnny Blaze", DateCreated = DateTime.UtcNow.AddDays(-2) }
-);
+        [
+            new Log { Id = 1, UserId = 1, Title = "User Name Updated", LogType = "Update", Description = "User name changed from Peter Pan to Peter Loew", DateCreated = DateTime.UtcNow.AddDays(-30) },
+            new Log { Id = 2, UserId = 2, Title = "User Email Updated", LogType = "Update", Description = "User email changed from ben@example.com to bfgates@example.com", DateCreated = DateTime.UtcNow.AddDays(-25) },
+            new Log { Id = 3, UserId = 3, Title = "User Date of Birth Updated", LogType = "Update", Description = "User date of birth changed from 1974-11-10 to 1974-11-12", DateCreated = DateTime.UtcNow.AddDays(-20) },
+            new Log { Id = 4, UserId = 4, Title = "User Name Updated", LogType = "Update", Description = "User name changed from Memphis Monroe to Memphis Raines", DateCreated = DateTime.UtcNow.AddDays(-15) },
+            new Log { Id = 5, UserId = 5, Title = "User Email Updated", LogType = "Update", Description = "User email changed from stantheman@example.com to sgodspeed@example.com", DateCreated = DateTime.UtcNow.AddDays(-10) },
+            new Log { Id = 6, UserId = 6, Title = "User Date of Birth Updated", LogType = "Update", Description = "User date of birth changed from 1989-03-20 to 1989-03-23", DateCreated = DateTime.UtcNow.AddDays(-5) },
+            new Log { Id = 7, UserId = 7, Title = "User Name Updated", LogType = "Update", Description = "User name changed from Edgar Allan Poe to Cameron Poe", DateCreated = DateTime.UtcNow.AddDays(-2) },
+            new Log { Id = 8, UserId = 8, Title = "User Email Updated", LogType = "Update", Description = "User email changed from eddyboii@example.com to emalus@example.com", DateCreated = DateTime.UtcNow.AddDays(-1) },
+            new Log { Id = 9, UserId = 9, Title = "User Date of Birth Updated", LogType = "Update", Description = "User date of birth changed from 1901-04-18 to 1991-04-19", DateCreated = DateTime.UtcNow },
+            new Log { Id = 10, UserId = 10, Title = "User Name Updated", LogType = "Update", Description = "User name changed from Johnny Joestar to Johnny Blaze", DateCreated = DateTime.UtcNow.AddDays(-48) },
+            new Log { Id = 11, UserId = 123456789, Title = "User Deleted", LogType = "Delete", Description = "User with ID 123456789 was deleted.", DateCreated = DateTime.UtcNow.AddDays(-45) }
+        ]);
+
     }
 
     public DbSet<User>? Users { get; set; }
